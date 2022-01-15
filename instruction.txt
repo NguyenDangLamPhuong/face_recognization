@@ -1,0 +1,174 @@
+Step 1
+------
+$ sudo apt-get update
+
+Step 2
+------
+$ sudo apt-get upgrade
+
+Step 3
+------
+$ sudo apt-get install build-essential
+
+Step 4
+------
+$ sudo apt-get install libncurses5-dev libncursesw5-dev libreadline6-dev libffi-dev
+
+Step 5
+------
+$ sudo apt-get install libbz2-dev libexpat1-dev liblzma-dev zlib1g-dev libsqlite3-dev libgdbm-dev tk8.5-dev libssl-dev openssl
+$ sudo apt-get install libboost-python-dev
+$ sudo apt-get install libpulse-dev
+
+Step 6
+------
+$ sudo apt-get install python-dev
+$ sudo apt-get install vim
+
+Step 7
+------
+$ cd ~
+$ mkdir python-source
+$ cd python-source/
+
+Step 8
+------
+$ wget https://www.python.org/ftp/python/3.8.1/Python-3.8.1.tgz
+
+Step 9
+------
+$ tar zxvf Python-3.8.1.tgz
+
+Step 10
+------
+$ cd Python-3.8.1/
+$ ./configure --prefix=/usr/local/opt/python-3.8.1
+
+Step 11
+-------
+$ make
+
+Step 12
+-------
+$ sudo make install
+
+Step 13
+-------
+$ /usr/local/opt/python-3.8.1/bin/python3.8 --version
+
+(The response should be: Python 3.8.1)
+
+Step 14
+------
+$ mkdir /var/www
+$ mkdir /var/www/lab_app/
+$ cd /var/www/lab_app/
+
+Step 15
+------
+$ /usr/local/opt/python-3.8.1/bin/python3.8 -m venv .
+
+Step 16
+------
+$ . bin/activate
+
+(Notice that the beginning of the command line shows the name of the active virtual environment)
+
+Step 17
+------
+$ deactivate
+
+
+Step 18
+------
+$ apt-get upgrade
+
+Step 19
+------
+$ apt-get install nginx
+
+Step 20
+------
+$ pip install flask
+
+Step 21
+------
+$ apt-get install vim
+
+Step 22
+------
+In hello.py, copy and save this text:
+
+from flask import Flask
+app = Flask(__name__)
+@app.route("/")
+def hello():
+  return "Hello World!"
+
+if __name__ == "__main__":
+  app.run(host='0.0.0.0', port=8080)
+
+
+Step 23
+------
+$ python hello.py
+
+Step 24
+------
+Use the browser to confirm it is working:
+
+http://192.168.111.63:8080/
+
+Step 25
+------
+$ sqlite3 sample.sql
+
+In SQLite3 command line interface (Example SQLite3 session):
+
+sqlite> .help
+
+#Create a new table
+sqlite> begin;
+sqlite> create table temperatures (rDatetime datetime, sensorID text, temp numeric);
+sqlite> insert into temperatures values (datetime(CURRENT_TIMESTAMP),"1",25);
+sqlite> insert into temperatures values (datetime(CURRENT_TIMESTAMP),"1",25.10);
+sqlite> commit;
+
+#Retrieve records
+sqlite> select * from temperatures;
+2022-01-13 04:47:00|1|25
+2022-01-13 04:47:25|1|25.1
+
+#Create another table
+sqlite> begin;
+sqlite> create table humidities (rDatetime datetime, sensorID text, hum numeric);
+sqlite> insert into humidities values (datetime(CURRENT_TIMESTAMP),"1",51);
+sqlite> insert into humidities values (datetime(CURRENT_TIMESTAMP),"1",51.10);
+sqlite> commit;
+
+#List existing tables
+sqlite> .tables
+humidities    temperatures
+
+#Show the schema of one of the tables
+sqlite> .schema temperatures
+CREATE TABLE temperatures (rDatetime datetime, sensorID text, temp numeric);
+
+#Exit sqlite3
+sqlite> .exit
+
+---------------------------------------------
+
+Step 26
+------
+$ pip install rpi.gpio
+
+Step 27
+------
+$ git clone https://github.com/adafruit/Adafruit_Python_DHT.git
+
+Step 28
+------
+$ cd Adafruit_Python_DHT/
+$ python setup.py install
+
